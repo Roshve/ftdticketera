@@ -28,7 +28,7 @@ componentDidMount() {
 handleDelete(e,pk) {
     var self = this;
     usersService.deleteUser({pk : pk}).then(()=>{
-        var newArr = selft.state.users.filter(function(obj) {
+        var newArr = self.state.users.filter(function(obj) {
             return obj.pk !== pk;
         });
         self.setState({users: newArr})
