@@ -1,4 +1,3 @@
-import userEvent from '@testing-library/user-event';
 import React, { Component } from 'react';
 
 import UsersService from './UsersService';
@@ -14,8 +13,8 @@ class UserCreateUpdate extends Component {
     componentDidMount() {
         const { match: { params } } = this.props;
         if (params && params.pk) {
-            usersService.getCustomer(params.pk).then((c) => {
-                this.refs.Name.value = c.name;
+            usersService.getUser(params.pk).then((c) => {
+                this.refs.name.value = c.name;
                 this.refs.lastName.value = c.last_name;
                 this.refs.email.value = c.email;
                 this.refs.phone.value = c.phone;
@@ -27,7 +26,7 @@ class UserCreateUpdate extends Component {
     handleCreate() {
         usersService.createUser(
             {
-                "name": this.refs.Name.value,
+                "name": this.refs.name.value,
                 "last_name": this.refs.lastName.value,
                 "email": this.refs.email.value,
                 "phone": this.refs.phone.value,
@@ -43,7 +42,7 @@ class UserCreateUpdate extends Component {
         usersService.updateUser(
             {
                 "pk": pk,
-                "first_name": this.refs.firstName.value,
+                "name": this.refs.name.value,
                 "last_name": this.refs.lastName.value,
                 "email": this.refs.email.value,
                 "phone": this.refs.phone.value,
@@ -72,7 +71,7 @@ class UserCreateUpdate extends Component {
                 <div className="form-group">
                     <label>
                         First Name:</label>
-                    <input className="form-control" type="text" ref='firstName' />
+                    <input className="form-control" type="text" ref='Name' />
 
                     <label>
                         Last Name:</label>

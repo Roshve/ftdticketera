@@ -1,6 +1,4 @@
-import { render } from '@testing-library/react';
 import React, { Component } from 'react';
-
 import UsersService from './UsersService';
 
 const usersService = new UsersService();
@@ -19,16 +17,16 @@ constructor(props) {
 }
 
 componentDidMount() {
-    var self = this;
+    let self = this;
     usersService.getUsers().then(function (result){
         self.setState({ users: result.data, nextPageURL: result.nextlink })
     });
 }
 
 handleDelete(e,pk) {
-    var self = this;
+    let self = this;
     usersService.deleteUser({pk : pk}).then(()=>{
-        var newArr = self.state.users.filter(function(obj) {
+        let newArr = self.state.users.filter(function(obj) {
             return obj.pk !== pk;
         });
         self.setState({users: newArr})
@@ -36,7 +34,7 @@ handleDelete(e,pk) {
 }
 
 nextPage() {
-    var self = this;
+    let self = this;
     usersService.getUsersByURL(this.state.nextPageURL).then((result) => {
         self.setState({ users: result.data, nextPageURL: result.nextlink })
     });
@@ -61,19 +59,19 @@ render() {
             </thead>
             <tbody>
             {this.state.users.map( c =>
-                <tr key={c.pk}>
-                <td>{c.pk}  </td>
-                <td>{c.first_name}</td>
+            <tr key={c.pk}>
+                <td>{c.pk}</td>
+                <td>{c.name}</td>
                 <td>{c.last_name}</td>
                 <td>{c.phone}</td>
                 <td>{c.email}</td>
                 <td>{c.address}</td>
                 <td>{c.description}</td>
                 <td>
-                <button onClick={(e)=> this.handleDelete(e,c.pk) }> Delete</button>
-                <a href={"/user/" + c.pk}>Update</a>
+                    <button onClick={(e)=> this.handleDelete(e,c.pk) }> Delete</button>
+                    <a href={"/user/" + c.pk}>Update</a>
                 </td>
-                </tr>)}
+            </tr>)}
             </tbody>
             </table>
             <button className="btn btn-primary" onClick= { this.nextPage }>Next</button>
